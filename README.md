@@ -3,8 +3,6 @@
 This package generate thumbnail and extract metadata from different type of document
 based on the API of [filepreviews.io].
 
-This package is Composer ready, [PSR-2] and [PSR-4] compliant.
-
 How it work ?
 -------------
 
@@ -21,7 +19,7 @@ Neos:
   Media:
     thumbnailGenerator:
 
-      'Ttree\FilePreviews\Domain\Model\ThumbnailGenerator\FilePreviewsThumbnailGenerator':
+      'Unikka\FilePreviews\Domain\Model\ThumbnailGenerator\FilePreviewsThumbnailGenerator':
         apiKey: 'api-key'
         apiSecret: 'api-secret'
         maximumWaitingTime: 30
@@ -34,20 +32,30 @@ Neos:
 - ```supportedExtensions```: check the official documentation of FilePreviews [Supported Formats] and enjoy.
 - ```defaultOptions```: check the [API endpoint] documentation.
 
-Acknowledgments
----------------
 
-Development sponsored by [ttree ltd - neos solution provider](http://ttree.ch).
+## Contribution
 
-We try our best to craft this package with a lots of love, we are open to sponsoring, support request, ... just contact us.
+We'd love you to contribute to neos-slick. We try to make it as easy as possible.
+We are using semantic versioning to have more time to concentrate on important stuff
+instead of struggling in the dependency or release hell.
 
-License
--------
+Therefore the first rule is to follow the [eslint commit message guideline](https://github.com/conventional-changelog-archived-repos/conventional-changelog-eslint/blob/master/convention.md).
+It is really easy if you always commit via `yarn commit`. Commitizen will guide you.
 
-The MIT License (MIT). Please see [LICENSE](LICENSE.txt) for more information.
+All PRs will be merged into the master branch. Travis and semantic release will check the commit messages and start
+building a new release when the analysis of the latest commits will trigger that.
 
-[PSR-2]: http://www.php-fig.org/psr/psr-2/
-[PSR-4]: http://www.php-fig.org/psr/psr-4/
+If you have questions just ping us on Twitter or Github.
+
+## About
+
+The package is based on the `Ttree\FilePreviews` package. We thank the [ttree team](https://ttree.ch) for
+all the efforts and initial development.
+
+## License
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+
 [filepreviews.io]: http://filepreviews.io/
 [Supported Formats]: https://filepreviews.io/docs/features/
 [API endpoint]: https://filepreviews.io/docs/endpoints/

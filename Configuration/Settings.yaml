@@ -1,7 +1,7 @@
 Neos:
   Media:
     thumbnailGenerators:
-      'Ttree\FilePreviews\Domain\Model\ThumbnailGenerator\FilePreviewsThumbnailGenerator':
+      'Unikka\FilePreviews\Domain\Model\ThumbnailGenerator\FilePreviewsThumbnailGenerator':
         apiKey: 'api-key'
         apiSecret: 'api-secret'
         maximumWaitingTime: 30

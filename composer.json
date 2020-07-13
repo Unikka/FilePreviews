@@ -1,16 +1,16 @@
 {
-    "name": "ttree/filepreviews",
+    "name": "unikka/filepreviews",
     "type": "neos-package",
     "license": "MIT",
-    "description": "Neos CMS filepreviews.io integration to generate thumbnail and extract metadata",
+    "description": "Neos CMS integration of filepreviews.io to generate thumbnails",
     "require": {
-        "neos/flow": ">4.0",
-        "neos/media": ">3.0",
-        "guzzle/guzzle": "~3.9"
+        "neos/flow": "~5.3",
+        "neos/media": "~4.3",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Ttree\\FilePreviews\\": "Classes"
+            "Unikka\\FilePreviews\\": "Classes"
         }
     }
 }

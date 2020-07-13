@@ -1,18 +1,18 @@
 <?php
-namespace Ttree\FilePreviews\Domain\Model\ThumbnailGenerator;
+namespace Unikka\FilePreviews\Domain\Model\ThumbnailGenerator;
 
 /*
- * This file is part of the Ttree.FilePreviews package.
+ * This file is part of the Unikka.FilePreviews package.
  *
- * (c) ttree ltd - www.ttree.ch
+ * (c) unikka and ttree ltd
  *
  * This package is Open Source Software. For the full copyright and license
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
 
-use Ttree\FilePreviews\Service\ApiClient;
-use Ttree\FilePreviews\Service\FilePreviewsService;
+use Unikka\FilePreviews\Service\ApiClient;
+use Unikka\FilePreviews\Service\FilePreviewsService;
 use Neos\Flow\Annotations as Flow;
 use Doctrine\ORM\Mapping as ORM;
 use Neos\Flow\ResourceManagement\ResourceManager;

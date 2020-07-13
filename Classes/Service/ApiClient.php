@@ -1,10 +1,10 @@
 <?php
-namespace Ttree\FilePreviews\Service;
+namespace Unikka\FilePreviews\Service;
 
 /*
- * This file is part of the Ttree.FilePreviews package.
+ * This file is part of the Unikka.FilePreviews package.
  *
- * (c) ttree ltd - www.ttree.ch
+ * (c) unikka and ttree ltd
  *
  * This package is Open Source Software. For the full copyright and license
  * information, please view the LICENSE file which was distributed with this
@@ -13,11 +13,10 @@ namespace Ttree\FilePreviews\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Media\Exception;
+use Psr\Log\LoggerInterface;
 
 /**
  * File Previews Service
- *
- * @api
  */
 class ApiClient
 {
@@ -30,6 +29,12 @@ class ApiClient
      * @var Client
      */
     protected $client;
+
+    /**
+     * @Flow\Inject
+     * @var LoggerInterface
+     */
+    protected $logger;
 
     /**
      * FilePreviewsService constructor
@@ -83,7 +88,6 @@ class ApiClient
 
             $geometry = '';
             $size = array_merge([
-                'height' => null,
                 'width' => null
             ], $size);
 

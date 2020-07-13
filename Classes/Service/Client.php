@@ -1,22 +1,23 @@
 <?php
-namespace Ttree\FilePreviews\Service;
+
+namespace Unikka\FilePreviews\Service;
 
 /*
- * This file is part of the Ttree.FilePreviews package.
+ * This file is part of the Unikka.FilePreviews package.
  *
- * (c) ttree ltd - www.ttree.ch
+ * (c) unikka and ttree ltd
  *
  * This package is Open Source Software. For the full copyright and license
  * information, please view the LICENSE file which was distributed with this
  * source code.
  */
 
-use Guzzle\Http\Client as GuzzleClient;
+use Neos\Flow\Annotations as Flow;
+use GuzzleHttp\Client as GuzzleClient;
+use Psr\Log\LoggerInterface;
 
 /**
  * File Previews Client Service
- *
- * @api
  */
 class Client
 {
@@ -31,9 +32,15 @@ class Client
      */
     protected $config;
 
+    /**
+     * @Flow\Inject
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     public function __construct(array $config = [])
     {
-        $this->client = new GuzzleClient($config['api_url']);
+        $this->client = new GuzzleClient(['base_uri' => $config['api_url']]);
         $this->config = $config;
     }
 
@@ -64,10 +71,17 @@ class Client
      */
     public function get($path)
     {
-        $request = $this->client->get($path, $this->getDefaultHeaders());
-        $request->setAuth($this->config['api_key'], $this->config['api_secret']);
-        $response = $request->send();
-        return json_decode($response->getBody(true));
+        $response = $this->client->request(
+            'GET',
+            $path,
+            [
+                'headers' => $this->getDefaultHeaders(),
+                'auth' => [$this->config['api_key'], $this->config['api_secret']]
+            ]
+        );
+
+        $this->logger->debug('GET ' . $path, ['response' => $response]);
+        return json_decode($response->getBody());
     }
 
     /**
@@ -77,10 +91,31 @@ class Client
      */
     public function post($path, $data)
     {
-        $request = $this->client->post($path, $this->getDefaultHeaders(), $data);
-        $request->setAuth($this->config['api_key'], $this->config['api_secret']);
-        $response = $request->send();
-        return json_decode($response->getBody(true));
+        $this->logger->debug(
+            'Make POST Request ' . $path,
+            [
+                'data' => $data,
+                'config' => $this->config
+            ]
+        );
+        $response = $this->client->request(
+            'POST',
+            $path,
+            [
+                'headers' => $this->getDefaultHeaders(),
+                'auth' => [$this->config['api_key'], $this->config['api_secret']],
+                'body' => $data
+            ]
+        );
+
+        $this->logger->debug(
+            'POST ' . $path,
+            [
+                'data' => $data,
+                'response' => $response
+            ]
+        );
+        return json_decode($response->getBody());
     }
 
 }
