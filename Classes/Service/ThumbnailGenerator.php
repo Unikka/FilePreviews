@@ -61,7 +61,7 @@ class ThumbnailGenerator
     public function submitThumbnailToFilePreviewApi($thumbnail)
     {
         $originalResource = $thumbnail->getOriginalAsset()->getResource();
-        $uri = 'https://file-examples-com.github.io/uploads/2017/02/file-sample_100kB.docx';//$this->resourceManager->getPublicPersistentResourceUri($originalResource);
+        $uri =$this->resourceManager->getPublicPersistentResourceUri($originalResource);
         $width = $thumbnail->getConfigurationValue('width') ?: $thumbnail->getConfigurationValue('maximumWidth');
         $height = $thumbnail->getConfigurationValue('height') ?: $thumbnail->getConfigurationValue('maximumHeight');
 
@@ -77,8 +77,6 @@ class ThumbnailGenerator
         if ($response->status === self::API_STATUS_PENDING) {
             $responseIdentifier = $response->id;
             $this->fetchThumbnailFromFilePreviewApi($responseIdentifier, $thumbnail);
-        } else {
-            // @Todo error handling
         }
     }
 
