@@ -19,8 +19,6 @@ Unikka:
   FilePreviews:
     apiKey: 'key'
     apiSecret: 'secret'
-    maximumWaitingTime: 30
-    retryInterval: 15
     defaultOptions:
       format: 'jpg'
 ```

@@ -20,6 +20,7 @@ use Neos\Media\Exception;
 use Neos\Utility\Arrays;
 use Psr\Log\LoggerInterface;
 use Flowpack\JobQueue\Common\Annotations as Job;
+use Unikka\FilePreviews\Exception\FilePreviewException;
 
 /**
  * File Previews Client Service
@@ -27,6 +28,8 @@ use Flowpack\JobQueue\Common\Annotations as Job;
 class ThumbnailGenerator
 {
     const API_STATUS_PENDING = 'pending';
+    const API_STATUS_FAILURE = 'failure';
+    const API_STATUS_SUCCESS = 'success';
 
     /**
      * @var ResourceManager
@@ -86,28 +89,26 @@ class ThumbnailGenerator
      * @param Thumbnail $thumbnail
      * @return void
      * @throws Exception
+     * @throws FilePreviewException
+     * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      * @throws \Neos\Flow\ResourceManagement\Exception
      */
     public function fetchThumbnailFromFilePreviewApi($previewIdentifier, Thumbnail $thumbnail)
     {
-        $success = false;
-        $elapsedTime = 0;
-        $maximumWaitingTime = (integer)$this->settings['maximumWaitingTime'];
-        $retryInterval = (integer)$this->settings['retryInterval'];
-        while ($success === false) {
-            if ($elapsedTime >= $maximumWaitingTime) {
-                break;
-            }
-            $previewApiClient = $this->getApiClient();
-            $response = $previewApiClient->retrieve($previewIdentifier);
+        $previewApiClient = $this->getApiClient();
+        $response = $previewApiClient->retrieve($previewIdentifier);
 
-            $success = $response->status === 'success';
-            sleep($retryInterval);
-            $elapsedTime = $elapsedTime + $retryInterval;
+        if ($response->status === self::API_STATUS_FAILURE) {
+            $message = sprintf(
+                'FilePreview.io was unable to generate thumbnail for the given reason: %s (%s)',
+                $response->error->message,
+                $response->error->code
+            );
+            throw new FilePreviewException($message, 1594730717);
         }
 
-        if ($success === false || !isset($response->thumbnails[0])) {
-            throw new Exception('Unable to process the thumbnail is less than 20 seconds, sorry', 1447891433);
+        if ($response->status !== self::API_STATUS_SUCCESS || !isset($response->thumbnails[0])) {
+            throw new Exception('Unable to process the thumbnail', 1594729983);
         }
 
         $url = $response->thumbnails[0]->url;
