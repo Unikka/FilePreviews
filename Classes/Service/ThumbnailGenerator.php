@@ -104,10 +104,12 @@ class ThumbnailGenerator
                 $response->error->message,
                 $response->error->code
             );
+            $this->logger->error($message, [$response]);
             throw new FilePreviewException($message, 1594730717);
         }
 
         if ($response->status !== self::API_STATUS_SUCCESS || !isset($response->thumbnails[0])) {
+            $this->logger->error('Unable to process the thumbnail', [$response]);
             throw new Exception('Unable to process the thumbnail', 1594729983);
         }
 
