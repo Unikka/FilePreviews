@@ -3,7 +3,7 @@ Unikka:
     apiKey: 'sQjSRy8WGaWo6d5dCDcGQ8Su1OxFY3'
     apiSecret: 'f6VtvhwxhIX3HxBINlM9yxLQZ1rzHi'
     maximumWaitingTime: 30
-    retryInterval: 1
+    retryInterval: 15
     defaultOptions:
       format: 'jpg'
 
@@ -22,7 +22,7 @@ Flowpack:
       queues:
         'filepreview-queue':
           className: 'Flowpack\JobQueue\Doctrine\Queue\DoctrineQueue'
-          maximumNumberOfReleases: 10
+          maximumNumberOfReleases: 3
           executeIsolated: true
           options:
             defaultTimeout: 50
