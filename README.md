@@ -58,7 +58,7 @@ The package is based on the `Ttree\FilePreviews` package. We thank the [ttree te
 all the efforts and initial development.
 
 ## License
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The GNU GENERAL PUBLIC LICENSE (Version 3). Please see [License File](LICENSE) for more information.
 
 
 [filepreviews.io]: http://filepreviews.io/

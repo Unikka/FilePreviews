@@ -1,7 +1,7 @@
 {
     "name": "unikka/filepreviews",
     "type": "neos-package",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "description": "Neos CMS integration of filepreviews.io to generate thumbnails",
     "require": {
         "neos/flow": "~5.3",
