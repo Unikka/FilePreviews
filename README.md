@@ -9,10 +9,44 @@ How it work ?
 This Generator call the FilePreviews.io API to generate Thumbnail for many different file formats. Check [filepreviews.io]
 website for more informations.
 
+Getting started
+-------------
+
+To use this package you need an account at [filepreview.io]. Create an account if you do not have one yet. Otherwise you can not use this package.
+
+If you already have an account you only have to look up your `API Key` and the corresponding `Secret`.
+
+Install the package via composer:
+```
+composer require unicka/filepreviews
+```
+
+Configure the API credentials:
+```yaml
+Unikka:
+  FilePreviews:
+    apiKey: 'your-key'
+    apiSecret: 'your-secret'
+```
+
+To get the preview images via filepreview.io we use a queue. This means that when you upload a new file to Neos we first create a standard preview image and then request it from the service.
+When the preview image is available for your website we download it and update the previous preview image.
+
+For the queue to work you need to set it up initially. This is done with the command:
+```bash
+./flow queue:setup filepreview-queue
+```
+
+The command before initializes everything and we get an additional database table `flowpack_jobqueue_messages_filepreview-queue` where we list all our thumbnail requests to [filepreviews.io].
+Now we just have to make sure that a worker is running and processing all our jobs. If an error occurs or a file is not yet ready, the file is put back and queried again.
+```bash
+./flow flowpack.jobqueue.common:job:work filepreview-queue
+```
+
 Configuration
 -------------
 
-Like any other Thumbnail Generator, you can change default settings. First step, you need to configure your API keys.
+Like any other Thumbnail Generator, you can change default settings. First step, like mentioned before in the getting stated section, you need to configure your API keys.
 
 ```yaml
 Unikka:
@@ -22,6 +56,12 @@ Unikka:
     defaultOptions:
       format: 'jpg'
 ```
+
+- ```apiKey```: check [filepreviews.io]
+- ```apiSecret```: check [filepreviews.io]
+- ```defaultOptions```: check the [API endpoint] documentation
+
+We use our own thumbnail generator and accordingly different options can be assigned. You can use the FilePreviewThumbnailGenerator with features like the supportedExtensions selectiv for only some specific file formats. For example, it is not very useful to use the generator for images, because Neos can process them itself. [Supported Formats] from filepreviews.io
 
 ```yaml
 Neos:
@@ -33,7 +73,27 @@ Neos:
 ```
 
 - ```supportedExtensions```: check the official documentation of FilePreviews [Supported Formats] and enjoy.
-- ```defaultOptions```: check the [API endpoint] documentation.
+- ```maximumFileSize```: Default is 2000000
+
+We use the packages [Flowpack.JobQueue.Common](https://github.com/Flowpack/jobqueue-common "Common queue package") and [Flowpack.JobQueue.Doctrine](https://github.com/Flowpack/jobqueue-doctrine "A job queue backend for the Flowpack.JobQueue.Common package")
+and these packages come with a lot of own configurations. See the docs of the packages. We use the doctrine backend to have error handling out of the box. But if you want to use redis for instance you can configure that and just replace the className.
+
+```yaml
+Flowpack:
+  JobQueue:
+    Common:
+      queues:
+        'filepreview-queue':
+          className: 'Flowpack\JobQueue\Doctrine\Queue\DoctrineQueue'
+          maximumNumberOfReleases: 3
+          executeIsolated: true
+          options:
+            defaultTimeout: 30
+          releaseOptions:
+            priority: 512
+            delay: 15
+```
+
 
 
 ## Contribution
