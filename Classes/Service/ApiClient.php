@@ -13,7 +13,6 @@ namespace Unikka\FilePreviews\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Media\Exception;
-use Psr\Log\LoggerInterface;
 
 /**
  * File Previews Service
@@ -29,12 +28,6 @@ class ApiClient
      * @var Client
      */
     protected $client;
-
-    /**
-     * @Flow\Inject
-     * @var LoggerInterface
-     */
-    protected $logger;
 
     /**
      * FilePreviewsService constructor

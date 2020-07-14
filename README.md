@@ -15,17 +15,22 @@ Configuration
 Like any other Thumbnail Generator, you can change default settings. First step, you need to configure your API keys.
 
 ```yaml
+Unikka:
+  FilePreviews:
+    apiKey: 'key'
+    apiSecret: 'secret'
+    maximumWaitingTime: 30
+    retryInterval: 1
+    defaultOptions:
+      format: 'jpg'
+```
+
+```yaml
 Neos:
   Media:
-    thumbnailGenerator:
-
+    thumbnailGenerators:
       'Unikka\FilePreviews\Domain\Model\ThumbnailGenerator\FilePreviewsThumbnailGenerator':
-        apiKey: 'api-key'
-        apiSecret: 'api-secret'
-        maximumWaitingTime: 30
-        defaultOptions:
-          format: 'jpg'
-        retryInterval: 1
+        maximumFileSize: 2000000
         supportedExtensions: [ 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlxs', 'odt', 'ott', 'odp', 'txt', 'rtf', 'eps', 'psd', 'ai' ]
 ```
 

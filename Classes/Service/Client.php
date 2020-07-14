@@ -80,7 +80,6 @@ class Client
             ]
         );
 
-        $this->logger->debug('GET ' . $path, ['response' => $response]);
         return json_decode($response->getBody());
     }
 
@@ -91,13 +90,6 @@ class Client
      */
     public function post($path, $data)
     {
-        $this->logger->debug(
-            'Make POST Request ' . $path,
-            [
-                'data' => $data,
-                'config' => $this->config
-            ]
-        );
         $response = $this->client->request(
             'POST',
             $path,
@@ -108,13 +100,6 @@ class Client
             ]
         );
 
-        $this->logger->debug(
-            'POST ' . $path,
-            [
-                'data' => $data,
-                'response' => $response
-            ]
-        );
         return json_decode($response->getBody());
     }
 

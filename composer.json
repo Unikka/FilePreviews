@@ -6,7 +6,9 @@
     "require": {
         "neos/flow": "~5.3",
         "neos/media": "~4.3",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "flowpack/jobqueue-common": "^3.0",
+        "flowpack/jobqueue-doctrine": "^3.0"
     },
     "autoload": {
         "psr-4": {
