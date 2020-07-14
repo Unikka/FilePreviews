@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/unikka/unikka.de/src/assets/unikka_with_background.svg" width="300" />
+</p>
+
+[![Packagist](https://img.shields.io/packagist/l/unikka/filepreviews.svg?style=flat-square)](https://packagist.org/packages/unikka/filepreviews)
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability-percentage/Unikka/filepreviews)
+[![Packagist](https://img.shields.io/packagist/v/unikka/filepreviews.svg?style=flat-square)](https://packagist.org/packages/unikka/filepreviews)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 # Neos CMS filepreviews.io integration
 
 This package generate thumbnail and extract metadata from different type of document
