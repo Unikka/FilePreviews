@@ -27,7 +27,7 @@ If you already have an account you only have to look up your `API Key` and the c
 
 Install the package via composer:
 ```
-composer require unicka/filepreviews
+composer require unikka/filepreviews
 ```
 
 Configure the API credentials:
