@@ -107,7 +107,7 @@ Flowpack:
 
 ## Contribution
 
-We'd love you to contribute to neos-slick. We try to make it as easy as possible.
+We'd love you to contribute to FilePreviews. We try to make it as easy as possible.
 We are using semantic versioning to have more time to concentrate on important stuff
 instead of struggling in the dependency or release hell.
 
